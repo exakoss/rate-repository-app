@@ -21,6 +21,10 @@ const theme = {
     normal: 15,
     small: 10,
     tiny: 5
+  },
+  signInInput: {
+    marginBottom: 5,
+    borderRadius: 1
   }
 };
 
