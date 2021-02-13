@@ -8,7 +8,7 @@ const Summary = ({repository}) => {
     <View style={styles.summary}>
     <Image style={styles.avatar} source={{uri: repository.ownerAvatarUrl}}/>
     <View style={{paddingLeft: theme.distance.small, marginBottom: theme.distance.tiny, flexShrink: 1}}>
-      <Text color='textPrimary' fontWeight='bold'>{repository.fullName}</Text>
+      <Text color='textPrimary' fontWeight='bold' testID='repositoryFullName'>{repository.fullName}</Text>
       <Text color='textSecondary' style={{padding: theme.distance.tiny, paddingLeft: 0}}>{repository.description}</Text>
       <Text color='textWhite' style={{backgroundColor: theme.colors.primary, alignSelf: 'flex-start', borderRadius: 3}}>{repository.language}</Text>
     </View>
@@ -39,6 +39,8 @@ const Stats = ({repository}) => {
 };
 
 const RepositoryItem = ({repository}) => {
+  // console.log(repository.id)
+
   return(
     <View style={styles.item}>
       <Summary repository={repository}/>

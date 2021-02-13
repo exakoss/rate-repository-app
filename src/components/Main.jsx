@@ -3,7 +3,12 @@ import { StyleSheet, View } from 'react-native'
 import RepositoryList from './RepositoryList'
 import AppBar from './AppBar'
 import SignIn from './SignIn'
-import { Route, Switch, Redirect } from 'react-router-native'
+import SignOut from './SignOut'
+import {Route, Switch, useHistory} from 'react-router-native'
+import SingleRepository from './SingleRepository'
+import useAuthorizedUser from '../hooks/useAuthorizedUser'
+import ReviewForm from './ReviewForm'
+import SignUpForm from './SignUpForm'
 
 const styles = StyleSheet.create({
   container: {
@@ -14,17 +19,33 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
+  let history = useHistory()
+  const {data, error, loading} = useAuthorizedUser()
+  if (error) return null;
+  if (loading) return null;
+  (data.authorizedUser) ? history.push('/') : history.push('/signIn')
   return(
     <View style={styles.container}>
       <AppBar/>
       <Switch>
-        <Route path="/" exact>
-          <RepositoryList />
-        </Route>
         <Route path='/signIn'>
           <SignIn/>
         </Route>
-        <Redirect to="/" />
+        <Route path='/reviewForm'>
+          <ReviewForm/>
+        </Route>
+        <Route path='/' exact>
+          <RepositoryList />
+        </Route>
+        <Route path='/signOut'>
+          <SignOut/>
+        </Route>
+        <Route path='/signUp'>
+          <SignUpForm/>
+        </Route>
+        <Route path='/repository/:id'>
+          <SingleRepository/>
+        </Route>
       </Switch>
     </View>
   )
